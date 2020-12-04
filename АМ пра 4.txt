@@ -1,0 +1,164 @@
+#include <iostream>
+#include <Windows.h>
+#include <stdio.h>
+#include <wchar.h>
+#include <windows.h>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RUS"); //ru //ukr
+	srand(static_cast<unsigned int>(time(NULL)));
+	//int const N = 5;
+	//int const N2 = N + 1;
+	// создать 1 ОБЫЧНЫЙ мас +++ 
+	//int arr1[N][N + 1];
+	// создать 2 ОБЫЧНЫЙ мас +++
+	//int arr2[N2][N2 + 1];
+	
+	int N;
+	do {
+		cout << "Введите следующие значения\nN  ";
+		cin >> N;
+
+	} while (!(N > 0));
+
+	N--;
+	int N2 = N + 1;
+
+	int q , p;
+	bool R;
+
+	cout << "заполнить случайными цифрами (1 - ДА , 0 - НЕТ) ";
+	cin >> R;
+	
+	
+	// создать 1 мас		+++ 
+	double** arr1 = new double* [N];		for (int i = 0; i < N; i++)
+	{
+		arr1[i] = new double[N + 1];
+	}
+	// создать 2 дин мас	+++
+	double** arr2 = new double* [N2];		for (int i = 0; i < N2; i++)
+	{
+		arr2[i] = new double[N2 + 1];
+	}	
+
+	// запалнение 1 мас 
+	if (R == 0) {
+		for (int i = 0; i < N; i++)
+		{
+			for (int j = 0; j < N + 1; j++)
+			{
+				//cout >> "ввидите елемент"<< << <<;
+				printf("ввидите елемент[%d][%d]",i, j);
+				cin >> arr1[i][j] ;
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < N; i++)
+		{
+			for (int j = 0; j < N + 1; j++)
+			{
+				arr1[i][j] = rand() % 31 - 15;
+			}
+		}
+	}
+	//ввивод на екран 1 мас
+
+
+		cout << "arr1";
+		cout << "\t";
+		for (int i = 0; i < N + 1; i++)
+		{
+			cout << i << "\t";
+		}
+		cout << "\n";
+		for (int i = 0; i < N; i++)
+		{
+			cout << i << "\t";
+			for (int j = 0; j < N + 1; j++)
+			{
+				cout << arr1[i][j] << "\t";
+			}
+			cout << "\n";
+		}
+		
+		do {
+			cout << "\n" << "\n" << "p горизонталь ";
+			cin >> p;
+		} while (!(p >= 0 && p <= N));
+
+		do {
+			cout << "q вертикаль   ";
+			cin >> q;
+		} while (!(q >= 0 && q <= N+1));
+
+		
+		cout << "\n" << "\n";
+		// запалнение 2 мас	
+	for (int rows1 = 0, rows2 = 0; rows2 < N2; rows2++)
+	{
+		if (p == rows2) {
+			for (int cols2 = 0; cols2 < N2 + 1; cols2++)
+			{
+				arr2[rows2][cols2] = 0;
+				//cout << arr2[rows2][cols2] << "\t";
+			}
+			//cout << "\n";
+			continue;
+		}
+		for (int cols1 = 0, cols2 = 0; cols2 < N2 + 1; cols2++)
+		{
+			if (q == cols2) {
+				arr2[rows2][cols2] = 0;
+				//cout << arr2[rows2][cols2] << "\t";
+				continue;
+			}
+			arr2[rows2][cols2] = arr1[rows1][cols1];
+			//cout << arr2[rows2][cols2] << "\t";
+			cols1++;
+		}
+		//cout << "\n";
+		rows1++;
+	}
+
+	cout << "\n";
+
+	//ввивод на екран 2 мас
+
+		cout << "arr2";
+		cout << "\t";
+		for (int i = 0; i < N2 + 1; i++)
+		{
+			cout << i << "\t";
+		}
+		cout << "\n";
+		for (int i = 0; i < N2; i++)
+		{
+			cout << i << "\t";
+			for (int j = 0; j < N2 + 1; j++)
+			{
+				cout << arr2[i][j] << "\t";
+			}
+			cout << "\n";
+		}
+
+
+	//delete
+		//1 массив 
+	for (int i = 0; i < N; i++)
+	{
+		delete[] arr1[i];
+	}
+	delete[] arr1;
+		//2 массив
+	for (int i = 0; i < N2; i++)
+	{
+		delete[] arr2[i];
+	}
+	delete[] arr2;
+	
+}
